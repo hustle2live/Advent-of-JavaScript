@@ -1,0 +1,163 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.main-screen {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  background: #eff0f6;
+}
+
+.menu,
+.cart {
+  position: absolute;
+  width: 375px;
+  height: 812px;
+  left: 320px;
+  top: 106px;
+  background: #ffffff;
+  box-shadow: 0px 0px 70px #c7cbe3;
+  border-radius: 25px;
+  border: #d7d6fc;
+}
+
+.menu {
+}
+
+.menu__header,
+.cart__header {
+  width: 190px;
+  height: 48px;
+  margin-left: 37.26px;
+  margin-top: 49.1px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 48px;
+  color: #000;
+}
+
+.menu__item-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  position: absolute;
+  width: 387.15px;
+  height: 556.03px;
+  left: 14.86px;
+  top: 117.37px;
+}
+
+.menu__item {
+  width: 370.27px;
+  height: 152.27px;
+  margin-left: 12.66px;
+  margin-left: 17.5px;
+  background: rgba(122, 179, 243, 0.2);
+  border-radius: 20px;
+}
+.menu__item-picture {
+  /* position: absolute; */
+  width: 148.41px;
+  height: 144.64px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.menu__item-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  position: absolute;
+  width: 158px;
+  height: 136px;
+  left: 168.92px;
+  top: 42.63px;
+}
+
+.menu__item-description {
+  position: static;
+  width: 158.48px;
+  height: 40px;
+  left: 0px;
+  top: 0px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+  color: #000000;
+}
+
+.menu__item-price {
+  position: static;
+  width: 179.31px;
+  height: 32px;
+  left: 0px;
+  top: 56px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 32px;
+  color: #000;
+}
+.menu__item-button {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 4px 18px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+  background: #6b00f5;
+  border-radius: 20px;
+  border: #d7d6fc;
+}
+.cart {
+  left: 745px;
+}
+.cart__header {
+}
+.cart__item {
+}
+.cart__item-picture {
+}
+.cart__item-description {
+}
+.cart__item-price {
+}
+.cart__item-buttons {
+}
+.cart-item__button-less {
+}
+.cart-item__quantity {
+}
+.cart-item__button-more {
+}
+.cart__item-cost {
+}
+.cart__resume {
+}
+.subtotal {
+}
+.subtotal__text {
+}
+.subtotal__amount {
+}
+.tax {
+}
+.tax__text {
+}
+.tax__amount {
+}
+.total {
+}
+.total__text {
+}
+.total__amount {
+}
