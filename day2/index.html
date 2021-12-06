@@ -11,10 +11,29 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body>
     <div class="main-screen">
+      <img
+        src="STARTER-FILES/images/bg__left.svg"
+        alt=""
+        class="background-left"
+      />
+      <img
+        src="STARTER-FILES/images/bg__top-right.svg"
+        alt=""
+        class="background-top"
+      />
+      <img
+        src="STARTER-FILES/images/bg__btm-right.svg"
+        alt=""
+        class="background-bottom"
+      />
       <div class="menu">
         <div class="menu__header">To Go Menu</div>
         <div class="menu__item-list">
@@ -78,29 +97,50 @@
       </div>
       <div class="cart">
         <div class="cart__header">Your Cart</div>
-        <div class="cart__item">
-          <div class="cart__item-picture"></div>
-          <div class="cart__item-description"></div>
-          <div class="cart__item-price"></div>
-          <div class="cart__item-buttons">
-            <button class="cart-item__button-less"></button>
-            <div class="cart-item__quantity"></div>
-            <button class="cart-item__button-more"></button>
+        <div class="cart__item-list">
+          <div class="cart__item">
+            <div class="cart__item__picture-div">
+              <img
+                src="STARTER-FILES/images/plate__french-fries.png"
+                alt="french fries menu"
+                class="cart__item-picture"
+              />
+              <span class="quantity">2</span>
+            </div>
+            <div class="cart__item-frame">
+              <div class="cart__item-description">
+                French Fries with Ketchup
+              </div>
+              <div class="cart__item-price">$2.23</div>
+              <div class="cart__item-buttons">
+                <div class="cart__item-button-less">
+                  <span class="material-icons-outlined md-36">
+                    chevron_left
+                  </span>
+                </div>
+                <div class="cart__item-quantity">2</div>
+                <div class="cart__item-button-more">
+                  <span class="material-icons-outlined md-36">
+                    chevron_right
+                  </span>
+                </div>
+              </div>
+              <div class="cart__item-amount">$4.46</div>
+            </div>
           </div>
-          <div class="cart__item-cost"></div>
         </div>
         <div class="cart__resume">
           <div class="subtotal">
-            <p class="subtotal__text"></p>
-            <p class="subtotal__amount"></p>
+            <p class="subtotal__text">Subtotal:</p>
+            <p class="subtotal__amount">$20.10</p>
           </div>
           <div class="tax">
-            <p class="tax__text"></p>
-            <p class="tax__amount"></p>
+            <p class="tax__text">Tax:</p>
+            <p class="tax__amount">$1.96</p>
           </div>
           <div class="total">
-            <p class="total__text"></p>
-            <p class="total__amount"></p>
+            <p class="total__text">Total:</p>
+            <p class="total__amount">$30.12</p>
           </div>
         </div>
       </div>
