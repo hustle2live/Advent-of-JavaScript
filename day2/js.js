@@ -1,7 +1,20 @@
-document.querySelector(".menu__item-list").addEventListener("click", addToCart);
 const itemList = [];
 
-const cartListElement = document.querySelector(".cart__item-list");
+const menuHTMLNodeList = document.querySelectorAll(".menu__item");
+const itemListCartElement = document.querySelector(".cart__item-list");
+const subtotalCartElement = document.querySelector(".subtotal__amount");
+const taxesCartElement = document.querySelector(".tax__amount");
+const totalPriceCartElement = document.querySelector(".total__amount");
+
+const theCartIsEmptyMessage = () => {
+  const emptyCart = document.createElement("li");
+  emptyCart.innerHTML = "The Cart is empty";
+  return emptyCart;
+};
+
+const roundPrice = (number) => {
+  return Math.round(parseFloat(number) * 100) / 100;
+};
 
 function addToCart(event) {
   if (event.target.classList.contains("menu__item-button")) {
@@ -17,141 +30,153 @@ function addToCart(event) {
     itemList.push(item);
 
     //change addToCart button
+    event.target.classList.remove("menu__item-button");
     event.target.classList.add("inCart");
     event.target.innerHTML =
       "<span class='material-icons-outlined'>done</span> &nbsp In Cart";
   }
-  CartRender(itemList);
+  CartRender();
 }
 
-function CartRender(itemList) {
-  while (cartListElement.firstChild) {
-    cartListElement.removeChild(cartListElement.firstChild);
-  }
+function CartRender() {
+  clearTheCartList();
+  fillTheCartList();
+  setTotalPrice();
+  if (itemList.length === 0)
+    itemListCartElement.appendChild(theCartIsEmptyMessage());
+}
 
+function setTotalPrice() {
+  let totalPrice = 0;
+  for (let item in itemList) {
+    totalPrice += parseFloat(itemList[item].price) * itemList[item].quantity;
+  }
+  const subtotal = roundPrice(totalPrice);
+  const tax = roundPrice(totalPrice * 0.0975);
+  const price = roundPrice(subtotal + tax);
+
+  subtotalCartElement.innerHTML = "$" + subtotal;
+  taxesCartElement.innerHTML = "$" + tax;
+  totalPriceCartElement.innerHTML = "$" + price;
+}
+
+function clearTheCartList() {
+  while (itemListCartElement.firstChild) {
+    itemListCartElement.removeChild(itemListCartElement.firstChild);
+  }
+}
+
+function fillTheCartList() {
   for (let i = 0; i < itemList.length; i++) {
-    createCartItem(
-      itemList[i].name,
-      itemList[i].price,
-      itemList[i].quantity,
-      itemList[i].image
-    );
+    if (itemList[i].quantity <= 0) {
+      const toDeleteFromCartList = itemList[i].name;
+      for (let i = 0; i < menuHTMLNodeList.length; i++) {
+        if (
+          menuHTMLNodeList[i].childNodes[3].children[0].innerText ===
+          toDeleteFromCartList
+        ) {
+          menuHTMLNodeList[i].childNodes[3].childNodes[5].classList.remove(
+            "inCart"
+          );
+          menuHTMLNodeList[i].childNodes[3].childNodes[5].classList.add(
+            "menu__item-button"
+          );
+          menuHTMLNodeList[i].childNodes[3].childNodes[5].innerHTML =
+            "Add to Cart";
+        }
+      }
+      itemList.splice([i], 1);
+      i--;
+    } else {
+      const newCartItem = document.createElement("li");
+      createCartItem(
+        itemList[i].name,
+        itemList[i].price,
+        itemList[i].quantity,
+        itemList[i].image,
+        newCartItem // <<-- return a new cart item
+      );
+      itemListCartElement.appendChild(newCartItem);
+    }
   }
 }
 
 function createCartItem(
-  elementName,
-  elementPrice,
-  elementQuantity,
-  elementImage
+  elemName,
+  elemPrice,
+  elemQuantity,
+  elemImagePath,
+  newCartItem
 ) {
-  const newCartItem = document.createElement("li");
-  const newPictureDiv = document.createElement("div");
-  const cartItemImage = document.createElement("img");
-  const itemImageQuantity = document.createElement("span");
-
   newCartItem.classList.add("cart__item");
-  newPictureDiv.classList.add("cart__item__picture-div");
-  cartItemImage.classList.add("cart__item-picture");
-  itemImageQuantity.classList.add("quantity");
+  const newPictureDiv = newDom("div", "cart__item__picture-div");
+  const cartItemImage = newDom("img", "cart__item-picture");
+  const itemImageQuantity = newDom("span", "quantity");
+  const itemInfoFrame = newDom("div", "cart__item-frame");
+  const itemDescription = newDom("p", "cart__item-description");
+  const itemPrice = newDom("p", "cart__item-price");
+  const itemButtons = newDom("div", "cart__item-buttons");
+  const itemButtonLess = newDom("div", "cart__item-button-less");
+  const itemButtonMore = newDom("div", "cart__item-button-more");
+  const itemQuantity = newDom("p", "cart__item-quantity");
+  const itemAmount = newDom("p", "cart__item-amount");
 
-  const itemInfoFrame = document.createElement("div");
-  itemInfoFrame.classList.add("cart__item-frame");
+  appendElem(newPictureDiv, cartItemImage, itemImageQuantity);
+  appendElem(newCartItem, newPictureDiv, itemInfoFrame);
+  appendElem(itemButtons, itemButtonLess, itemQuantity, itemButtonMore);
+  appendElem(
+    itemInfoFrame,
+    itemDescription,
+    itemPrice,
+    itemButtons,
+    itemAmount
+  );
 
-  const itemDescription = document.createElement("p");
-  itemDescription.classList.add("cart__item-description");
-
-  const itemPrice = document.createElement("p");
-  itemPrice.classList.add("cart__item-price");
-
-  const itemButtons = document.createElement("div");
-  itemButtons.classList.add("cart__item-buttons");
-
-  const itemButtonLess = document.createElement("div");
-  itemButtonLess.classList.add("cart__item-button-less");
-
-  const itemButtonMore = document.createElement("div");
-  itemButtonMore.classList.add("cart__item-button-more");
-
-  const itemQuantity = document.createElement("p");
-  itemQuantity.classList.add("cart__item-quantity");
-
-  const itemAmount = document.createElement("p");
-  itemAmount.classList.add("cart__item-amount");
-
-  newPictureDiv.appendChild(cartItemImage);
-  newPictureDiv.appendChild(itemImageQuantity);
-  newCartItem.appendChild(newPictureDiv);
-  newCartItem.appendChild(itemInfoFrame);
-
-  itemInfoFrame.appendChild(itemDescription);
-  itemInfoFrame.appendChild(itemPrice);
-  itemInfoFrame.appendChild(itemButtons);
-  itemInfoFrame.appendChild(itemAmount);
-
-  itemButtons.appendChild(itemButtonLess);
-  itemButtons.appendChild(itemQuantity);
-  itemButtons.appendChild(itemButtonMore);
-
-  cartItemImage.setAttribute("src", elementImage);
-
-  itemDescription.innerHTML = elementName;
-
-  itemPrice.innerHTML = `$${elementPrice}`;
-
+  cartItemImage.setAttribute("src", elemImagePath);
+  itemDescription.innerHTML = elemName;
+  itemPrice.innerHTML = `$${elemPrice}`;
   itemButtonLess.innerHTML =
     '<span class="material-icons-outlined md-36">chevron_left</span>';
-
-  itemImageQuantity.innerHTML = elementQuantity;
-  itemQuantity.innerHTML = elementQuantity;
-
   itemButtonMore.innerHTML =
     '<span class="material-icons-outlined md-36">chevron_right</span>';
+  itemImageQuantity.innerHTML = elemQuantity;
+  itemQuantity.innerHTML = elemQuantity;
+  itemAmount.innerHTML = `$${roundPrice(elemPrice * elemQuantity)}`;
 
-  itemAmount.innerHTML = `$${elementPrice * elementQuantity}`;
-  cartListElement.appendChild(newCartItem);
+  return newCartItem;
 }
 
-// const menuListElement = document.querySelectorAll(".menu__item");
-// console.log(menuListElement);
+const newDom = (tagName, className) => {
+  const newDom = document.createElement(tagName);
+  newDom.classList.add(className);
+  return newDom;
+};
 
-// const arrayMenu = [
-//   {
-//     name: "French Fries with Ketchup",
-//     image: "plate__french-fries",
-//     price: 2.23,
-//     quantity: 1
-//   },
-//   {
-//     name: "Salmon and Vegetables",
-//     image: "plate__salmon-vegetables",
-//     price: 5.12,
-//     quantity: 1
-//   },
-//   {
-//     name: "Spaghetti with Sauce",
-//     image: "plate__spaghetti-meat-sauce",
-//     price: 7.82,
-//     quantity: 1
-//   },
-//   {
-//     name: "Breakfast with eggs and bacon",
-//     image: "plate__bacon-eggs",
-//     price: 4.5,
-//     quantity: 1
-//   },
-//   {
-//     name: "Fish sticks fries",
-//     image: "plate__fish-sticks-fries",
-//     price: 8.24,
-//     quantity: 1
-//   },
-//   {
-//     name: "Chicken salad menu",
-//     image: "plate__chicken-salad",
-//     price: 4.65,
-//     quantity: 1
-//   },
-//   { name: "Tortellini", image: "plate__tortellini", price: 3.95, quantity: 1 },
-//   { name: "Ravioli menu", image: "plate__ravioli", price: 3.2, quantity: 1 }
-// ];
+function appendElem(a, b, c, d, e) {
+  a.appendChild(b);
+  if (c != undefined) a.appendChild(c);
+  if (d != undefined) a.appendChild(d);
+  if (e != undefined) a.appendChild(e);
+}
+
+function cartItemsManager(event) {
+  if (event.target.parentNode.classList.contains("cart__item-button-more")) {
+    for (let i in itemList) {
+      if (itemList[i].name === event.path[3].childNodes[0].innerText)
+        itemList[i].quantity++;
+    }
+  } else if (
+    event.target.parentNode.classList.contains("cart__item-button-less")
+  ) {
+    for (let i in itemList) {
+      if (itemList[i].name === event.path[3].childNodes[0].innerText)
+        itemList[i].quantity--;
+    }
+  }
+  CartRender();
+}
+
+document.querySelector(".menu__item-list").addEventListener("click", addToCart);
+itemListCartElement.addEventListener("click", cartItemsManager);
+
+CartRender();
