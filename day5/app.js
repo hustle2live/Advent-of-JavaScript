@@ -148,3 +148,7 @@ const episodes = [
     name: "Building a Course"
   }
 ];
+
+document.querySelector("ul").addEventListener("click", (e) => {
+  console.log(e);
+});
