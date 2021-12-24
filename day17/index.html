@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main">
+      <input class="first" placeholder="type a number" />
+      <input class="second" placeholder="type a number" />
+      <div class="operator">
+        <input type="radio" name="symbol" value="+" id="plus" />
+        <label for="plus"> + plus</label>
+      </div>
+      <div class="operator">
+        <input type="radio" name="symbol" value="-" id="minus" checked />
+        <label for="minus"> - minus</label>
+      </div>
+      <div class="operator">
+        <input type="radio" name="symbol" value="/" id="delete" />
+        <label for="delete"> / delete</label>
+      </div>
+      <div class="operator">
+        <input type="radio" name="symbol" value="*" id="multiply" />
+        <label for="multiply"> * multiply</label>
+      </div>
+      <button class="submit">Calculate</button>
+      <div class="total">Result: <span class="out">_____</span></div>
+    </div>
+    <script src="js.js"></script>
+  </body>
+</html>
