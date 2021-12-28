@@ -1,14 +1,19 @@
-const argumentOne = document.querySelector(".first");
-const argumentTwo = document.querySelector(".second");
-const submitButton = document.querySelector(".submit");
-const symbolsRadio = document.querySelectorAll("input[type=radio]");
-const divOut = document.querySelector(".out");
+const chooseOptimalDistance = (t, k, ls) => {
+  ls = [51, 56, 58, 59, 61];
+  t = 174;
+  k = 3;
 
-submitButton.addEventListener("click", () => {
-  for (key of symbolsRadio) {
-    if (key.checked)
-      divOut.innerHTML = Math.round(
-        eval(argumentOne.value + key.value + argumentTwo.value)
-      );
-  }
-});
+  let summ = 0;
+  // const a = [];
+
+  // твій код
+  // return null;
+};
+
+chooseOptimalDistance();
+
+// chooseOptimalDistance(174, 3, [51, 56, 58, 59, 61]); //173
+// chooseOptimalDistance(163, 3, [50]); // null
+
+// Завдання до виконання мовою JavaScript
+// Ділан і Кейт хочуть подорожувати між кількома містами А, В, С.... Кейт має на аркуші паперу список відстаней між цими містами. ls = [51, 56, 58, 59, 61]. Ділан втомився їздити, і він каже Кейт, що не хоче їхати більше t = 174 милі, і він відвідає лише 3 міста. Які відстані, а отже, які міста вони оберуть, щоб сума відстаней була якомога більшою, щоб догодити Кейт та Ділану?
