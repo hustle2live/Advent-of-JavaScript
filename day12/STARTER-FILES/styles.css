@@ -12,6 +12,9 @@ body {
 .wrapper {
 }
 
+.tie-game {
+}
+
 h1 {
   font-weight: bold;
   font-size: 2rem;
@@ -67,7 +70,9 @@ body.winner.computer-wins {
 }
 
 body.computer-wins h1.you-win,
-body.you-win h1.computer-wins {
+body.you-win h1.computer-wins,
+body.tie-game h1.you-win,
+body.tie-game h1.computer-wins {
   visibility: hidden;
 }
 
