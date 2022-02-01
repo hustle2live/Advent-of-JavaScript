@@ -1,31 +1,26 @@
 const hrefs = document.querySelectorAll('li a[href="#"]');
-// console.log(hrefs[0]);
 
 const headers = document.querySelectorAll("main h3");
-// console.log(headers[0]);
 const mainPart = document.querySelector("main");
 const content = document.querySelector(".content");
-
-// const hrefCoords = [180, 240, 285, 345, 414, 463, 532, 582, 640];
-
-let bounding = [];
 
 for (let i = 0; i < hrefs.length; i++) {
   hrefs[i].addEventListener("click", function (event) {
     event.preventDefault();
     headers[i].scrollIntoView({
       behavior: "smooth",
-      block: "start"
+      block: "center"
     });
-    deleteActiveItem(hrefs);
-    this.parentNode.classList.add("selected");
   });
 }
 
-const array = {};
-
 window.addEventListener("scroll", function () {
-  headers.forEach((item) => isInViewport(item) && console.log(item));
+  for (let b = 0; b < hrefs.length; b++) {
+    if (isInViewport(headers[b])) {
+      deleteActiveItem(hrefs);
+      hrefs[b].parentNode.classList.add("selected");
+    }
+  }
 });
 
 function isInViewport(elem) {
@@ -34,7 +29,8 @@ function isInViewport(elem) {
     bounding.top >= 0 &&
     bounding.left >= 0 &&
     bounding.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
+      (window.innerHeight - 350 ||
+        document.documentElement.clientHeight - 350) &&
     bounding.right <=
       (window.innerWidth || document.documentElement.clientWidth)
   );
