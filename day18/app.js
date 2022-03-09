@@ -1,21 +1,54 @@
 const passwordInput = document.getElementById("password");
 
-const passwordLength = document.querySelector("#length");
-const selectSymbols = document.querySelector("#symbols");
-const selectNumbers = document.querySelector("#numbers");
-const selectLowerCase = document.querySelector("#lowercase");
-const selectUpperCase = document.querySelector("#uppercase");
-const selectSimilar = document.querySelector("#similar");
+const passwordLengthElement = document.querySelector("#length");
+// const passwordLength = passwordLengthElement.value;
+const passwordLengthText = document.querySelector("#lengthText");
+
+const selectSymbols = document.querySelector("#symbols").checked;
+const selectNumbers = document.querySelector("#numbers").checked;
+const selectLowerCase = document.querySelector("#lowercase").checked;
+const selectUpperCase = document.querySelector("#uppercase").checked;
+const selectSimilar = document.querySelector("#similar").checked;
 
 const newPasswordArr = [];
 
-passwordInput.onkeydown = showSymbol;
+// passwordInput.onkeydown = showSymbol;
+passwordLengthElement.addEventListener("input", () => showSymbol());
 
-function showSymbol(e) {
-  console.log(getRandomFromChartCode(10, 48));
+// passwordLength.oninput = () => console.log(passwordLength.value);
 
-  // console.log(String.fromCharCode(getRandomNumber()));
+function showSymbol() {
+  newPasswordArr.length = 0;
+  // console.log(passwordLengthElement.value);
+
+  for (let i = 0; i <= passwordLengthElement.value; i++) {
+    if (selectSymbols) {
+      newPasswordArr.push(getRandomFromChartCode(15, 33));
+      i++;
+    }
+    if (selectNumbers && i <= passwordLengthElement.value) {
+      newPasswordArr.push(getRandomFromChartCode(10, 48));
+      i++;
+    }
+    if (selectLowerCase && i <= passwordLengthElement.value) {
+      newPasswordArr.push(getRandomFromChartCode(26, 97));
+      i++;
+    }
+    if (selectUpperCase && i <= passwordLengthElement.value) {
+      newPasswordArr.push(getRandomFromChartCode(26, 65));
+      i++;
+    }
+    // if (selectSimilar) {
+    //   newPasswordArr.push(getRandomFromChartCode(15, 33));
+    //   i++;
+    // }
+  }
+
+  passwordInput.value = newPasswordArr.join("");
+  passwordLengthText.innerHTML = passwordLengthElement.value;
 }
+
+// console.log(passwordLengthElement.value);
 
 function getRandomLower() {
   return Math.floor(Math.random() * 26) + 97;
@@ -31,7 +64,7 @@ function getRandomSymbol() {
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 10) + 48;
-} // 11, 48
+} // 10, 48
 
 function getRandomFromChartCode(quantity, startFrom) {
   return String.fromCharCode(Math.floor(Math.random() * quantity) + startFrom);
