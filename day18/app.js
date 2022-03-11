@@ -1,71 +1,86 @@
-const passwordInput = document.getElementById("password");
+const passwordElem = document.getElementById("password");
 
-const passwordLengthElement = document.querySelector("#length");
-// const passwordLength = passwordLengthElement.value;
-const passwordLengthText = document.querySelector("#lengthText");
+const lengthElem = document.querySelector("#length");
+const lengthTextElem = document.querySelector("#lengthText");
 
-const selectSymbols = document.querySelector("#symbols").checked;
-const selectNumbers = document.querySelector("#numbers").checked;
-const selectLowerCase = document.querySelector("#lowercase").checked;
-const selectUpperCase = document.querySelector("#uppercase").checked;
-const selectSimilar = document.querySelector("#similar").checked;
+const addSymbols = document.querySelector("#symbols");
+const addNumbers = document.querySelector("#numbers");
+const addLowerCase = document.querySelector("#lowercase");
+const addUpperCase = document.querySelector("#uppercase");
+const addSimilar = document.querySelector("#similar");
+
+const copyButton = document.querySelector(".copy");
+const copySpan = document.querySelector(".copy span");
 
 const newPasswordArr = [];
 
-// passwordInput.onkeydown = showSymbol;
-passwordLengthElement.addEventListener("input", () => showSymbol());
-
-// passwordLength.oninput = () => console.log(passwordLength.value);
-
 function showSymbol() {
-  newPasswordArr.length = 0;
-  // console.log(passwordLengthElement.value);
+  const hasSymbols = addSymbols.checked;
+  const hasNumbers = addNumbers.checked;
+  const hasLowerCase = addLowerCase.checked;
+  const hasUpperCase = addUpperCase.checked;
+  const hasSimilar = addSimilar.checked;
 
-  for (let i = 0; i <= passwordLengthElement.value; i++) {
-    if (selectSymbols) {
-      newPasswordArr.push(getRandomFromChartCode(15, 33));
-      i++;
+  console.log(hasSymbols, hasNumbers, hasLowerCase, hasUpperCase, hasSimilar);
+
+  hideCopiedMessage();
+
+  newPasswordArr.length = 0;
+
+  const lengthValue = lengthElem.value;
+  // const allowLength = newPasswordArr.length < lengthValue;
+
+  while (newPasswordArr.length < lengthValue) {
+    if (hasSymbols) {
+      if (newPasswordArr.length < lengthValue)
+        newPasswordArr.push(getRandomSymbol());
     }
-    if (selectNumbers && i <= passwordLengthElement.value) {
-      newPasswordArr.push(getRandomFromChartCode(10, 48));
-      i++;
+    if (hasNumbers) {
+      if (newPasswordArr.length < lengthValue)
+        newPasswordArr.push(getRandomFromChartCode(10, 48));
     }
-    if (selectLowerCase && i <= passwordLengthElement.value) {
-      newPasswordArr.push(getRandomFromChartCode(26, 97));
-      i++;
+    if (hasLowerCase) {
+      if (newPasswordArr.length < lengthValue)
+        newPasswordArr.push(getRandomFromChartCode(26, 97));
     }
-    if (selectUpperCase && i <= passwordLengthElement.value) {
-      newPasswordArr.push(getRandomFromChartCode(26, 65));
-      i++;
+    if (hasUpperCase) {
+      if (newPasswordArr.length < lengthValue)
+        newPasswordArr.push(getRandomFromChartCode(26, 65));
     }
-    // if (selectSimilar) {
-    //   newPasswordArr.push(getRandomFromChartCode(15, 33));
-    //   i++;
-    // }
+    if (hasSimilar) {
+      if (newPasswordArr.length < lengthValue)
+        newPasswordArr.push(getRandomSimilar());
+    }
   }
 
-  passwordInput.value = newPasswordArr.join("");
-  passwordLengthText.innerHTML = passwordLengthElement.value;
+  passwordElem.value = newPasswordArr.join("");
+  lengthTextElem.innerHTML =
+    lengthElem.value + " length: (" + passwordElem.value.length + ") ";
 }
-
-// console.log(passwordLengthElement.value);
-
-function getRandomLower() {
-  return Math.floor(Math.random() * 26) + 97;
-} // 26, 97
-
-function getRandomUpper() {
-  return Math.floor(Math.random() * 26) + 65;
-} // 26, 65
-
-function getRandomSymbol() {
-  return Math.floor(Math.random() * 15) + 33;
-} // 15, 33
-
-function getRandomNumber() {
-  return Math.floor(Math.random() * 10) + 48;
-} // 10, 48
 
 function getRandomFromChartCode(quantity, startFrom) {
   return String.fromCharCode(Math.floor(Math.random() * quantity) + startFrom);
 }
+
+function getRandomSymbol() {
+  const symbols = "!@#$%^&*(){}[]=<>/,.";
+  return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
+function getRandomSimilar() {
+  const similar = "il1Lo0O";
+  return similar[Math.floor(Math.random() * similar.length)];
+}
+
+const showCopiedMessage = () => (copySpan.style.display = "block");
+const hideCopiedMessage = () => (copySpan.style.display = "none");
+
+copyButton.addEventListener("click", () => {
+  const input = passwordElem.value;
+
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(input);
+  showCopiedMessage();
+});
+
+lengthElem.addEventListener("input", () => showSymbol());
