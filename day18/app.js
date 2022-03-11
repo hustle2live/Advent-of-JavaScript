@@ -1,61 +1,46 @@
-const passwordElem = document.getElementById("password");
+const passwordElem = document.getElementById("password"),
+  lengthElem = document.querySelector("#length"),
+  lengthTextElem = document.querySelector("#lengthText"),
+  addSymbolsElem = document.querySelector("#symbols"),
+  addNumbersElem = document.querySelector("#numbers"),
+  addLowerCaseElem = document.querySelector("#lowercase"),
+  addUpperCaseElem = document.querySelector("#uppercase"),
+  addSimilarElem = document.querySelector("#similar"),
+  copyButtonElem = document.querySelector(".copy"),
+  copyButtonTextElem = document.querySelector(".copy span");
 
-const lengthElem = document.querySelector("#length");
-const lengthTextElem = document.querySelector("#lengthText");
-
-const addSymbols = document.querySelector("#symbols");
-const addNumbers = document.querySelector("#numbers");
-const addLowerCase = document.querySelector("#lowercase");
-const addUpperCase = document.querySelector("#uppercase");
-const addSimilar = document.querySelector("#similar");
-
-const copyButton = document.querySelector(".copy");
-const copySpan = document.querySelector(".copy span");
-
-const newPasswordArr = [];
+const newPassword = [];
 
 function showSymbol() {
-  const hasSymbols = addSymbols.checked;
-  const hasNumbers = addNumbers.checked;
-  const hasLowerCase = addLowerCase.checked;
-  const hasUpperCase = addUpperCase.checked;
-  const hasSimilar = addSimilar.checked;
-
-  console.log(hasSymbols, hasNumbers, hasLowerCase, hasUpperCase, hasSimilar);
-
+  newPassword.length = 0;
   hideCopiedMessage();
 
-  newPasswordArr.length = 0;
+  const lengthValue = +lengthElem.value,
+    hasSymbols = addSymbolsElem.checked,
+    hasNumbers = addNumbersElem.checked,
+    hasLowerCase = addLowerCaseElem.checked,
+    hasUpperCase = addUpperCaseElem.checked,
+    hasSimilar = addSimilarElem.checked;
 
-  const lengthValue = lengthElem.value;
-  // const allowLength = newPasswordArr.length < lengthValue;
+  const checkboxesCounter =
+    hasSymbols + hasNumbers + hasLowerCase + hasUpperCase + hasSimilar;
 
-  while (newPasswordArr.length < lengthValue) {
-    if (hasSymbols) {
-      if (newPasswordArr.length < lengthValue)
-        newPasswordArr.push(getRandomSymbol());
+  if (checkboxesCounter === 0) {
+    passwordElem.value = "select an option";
+  } else {
+    while (newPassword.length < lengthValue) {
+      if (hasSymbols) newPassword.push(getRandomSymbol());
+      if (hasNumbers) newPassword.push(getRandomFromChartCode(10, 48));
+      if (hasLowerCase) newPassword.push(getRandomFromChartCode(26, 97));
+      if (hasUpperCase) newPassword.push(getRandomFromChartCode(26, 65));
+      if (hasSimilar) newPassword.push(getRandomSimilar());
     }
-    if (hasNumbers) {
-      if (newPasswordArr.length < lengthValue)
-        newPasswordArr.push(getRandomFromChartCode(10, 48));
-    }
-    if (hasLowerCase) {
-      if (newPasswordArr.length < lengthValue)
-        newPasswordArr.push(getRandomFromChartCode(26, 97));
-    }
-    if (hasUpperCase) {
-      if (newPasswordArr.length < lengthValue)
-        newPasswordArr.push(getRandomFromChartCode(26, 65));
-    }
-    if (hasSimilar) {
-      if (newPasswordArr.length < lengthValue)
-        newPasswordArr.push(getRandomSimilar());
-    }
+    const generatedPassword = newPassword.join("");
+    const finalPassword = generatedPassword.slice(0, lengthValue);
+    passwordElem.value = finalPassword;
   }
 
-  passwordElem.value = newPasswordArr.join("");
-  lengthTextElem.innerHTML =
-    lengthElem.value + " length: (" + passwordElem.value.length + ") ";
+  lengthTextElem.textContent = lengthElem.value;
 }
 
 function getRandomFromChartCode(quantity, startFrom) {
@@ -72,10 +57,10 @@ function getRandomSimilar() {
   return similar[Math.floor(Math.random() * similar.length)];
 }
 
-const showCopiedMessage = () => (copySpan.style.display = "block");
-const hideCopiedMessage = () => (copySpan.style.display = "none");
+const showCopiedMessage = () => (copyButtonTextElem.style.display = "block");
+const hideCopiedMessage = () => (copyButtonTextElem.style.display = "none");
 
-copyButton.addEventListener("click", () => {
+copyButtonElem.addEventListener("click", () => {
   const input = passwordElem.value;
 
   /* Copy the text inside the text field */
