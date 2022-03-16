@@ -9,10 +9,18 @@ const passwordElem = document.getElementById("password"),
   copyButtonElem = document.querySelector(".copy"),
   copyButtonTextElem = document.querySelector(".copy span");
 
-const newPassword = [];
+const checkboxes = document.querySelectorAll("input[type=checkbox]");
 
-function showSymbol() {
-  newPassword.length = 0;
+const characters = {
+  symbols: "!@#$%^&*(){}[]=<>/,.",
+  similar: "il1Lo0O",
+  uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  lowercase: "abcdefghijklmnopqrstuvwxyz",
+  numbers: "0123456789"
+};
+
+const showSymbol = () => {
+  const newPassword = [];
   hideCopiedMessage();
 
   const lengthValue = +lengthElem.value,
@@ -22,40 +30,42 @@ function showSymbol() {
     hasUpperCase = addUpperCaseElem.checked,
     hasSimilar = addSimilarElem.checked;
 
-  const checkboxesCounter =
-    hasSymbols + hasNumbers + hasLowerCase + hasUpperCase + hasSimilar;
+  const options = [
+    hasSymbols,
+    hasNumbers,
+    hasLowerCase,
+    hasUpperCase,
+    hasSimilar
+  ];
 
-  if (checkboxesCounter === 0) {
+  const noOptionChecked = options.every((option) => !option);
+
+  if (noOptionChecked) {
     passwordElem.value = "select an option";
   } else {
     while (newPassword.length < lengthValue) {
-      if (hasSymbols) newPassword.push(getRandomSymbol());
-      if (hasNumbers) newPassword.push(getRandomFromChartCode(10, 48));
-      if (hasLowerCase) newPassword.push(getRandomFromChartCode(26, 97));
-      if (hasUpperCase) newPassword.push(getRandomFromChartCode(26, 65));
-      if (hasSimilar) newPassword.push(getRandomSimilar());
+      for (const box in checkboxes) {
+        if (checkboxes[box].checked)
+          newPassword.push(getRandomCharacter(checkboxes[box].name));
+      }
     }
-    const generatedPassword = newPassword.join("");
-    const finalPassword = generatedPassword.slice(0, lengthValue);
-    passwordElem.value = finalPassword;
+
+    const shuffledFinalPassword = newPassword
+      .sort((a, b) => 0.5 - Math.random())
+      .join("")
+      .slice(0, lengthValue);
+
+    passwordElem.value = shuffledFinalPassword;
   }
 
   lengthTextElem.textContent = lengthElem.value;
-}
+};
 
-function getRandomFromChartCode(quantity, startFrom) {
-  return String.fromCharCode(Math.floor(Math.random() * quantity) + startFrom);
-}
-
-function getRandomSymbol() {
-  const symbols = "!@#$%^&*(){}[]=<>/,.";
-  return symbols[Math.floor(Math.random() * symbols.length)];
-}
-
-function getRandomSimilar() {
-  const similar = "il1Lo0O";
-  return similar[Math.floor(Math.random() * similar.length)];
-}
+const getRandomCharacter = (optionName) => {
+  return characters[optionName][
+    Math.floor(Math.random() * characters[optionName].length)
+  ];
+};
 
 const showCopiedMessage = () => (copyButtonTextElem.style.display = "block");
 const hideCopiedMessage = () => (copyButtonTextElem.style.display = "none");
