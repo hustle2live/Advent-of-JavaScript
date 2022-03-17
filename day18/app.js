@@ -17,7 +17,7 @@ const characters = {
 const generatePassword = () => {
   const passwordArray = [];
   const lengthRequired = +lengthElem.value;
-  const options = Array.prototype.slice.call(checkboxes);
+  const options = Array.from(checkboxes);
 
   const noOptionsChecked = options.every((option) => !option.checked);
 
