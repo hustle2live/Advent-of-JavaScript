@@ -1,11 +1,6 @@
 const passwordElem = document.getElementById("password"),
   lengthElem = document.querySelector("#length"),
   lengthTextElem = document.querySelector("#lengthText"),
-  addSymbolsElem = document.querySelector("#symbols"),
-  addNumbersElem = document.querySelector("#numbers"),
-  addLowerCaseElem = document.querySelector("#lowercase"),
-  addUpperCaseElem = document.querySelector("#uppercase"),
-  addSimilarElem = document.querySelector("#similar"),
   copyButtonElem = document.querySelector(".copy"),
   copyButtonTextElem = document.querySelector(".copy span");
 
@@ -19,41 +14,29 @@ const characters = {
   numbers: "0123456789"
 };
 
-const showSymbol = () => {
-  const newPassword = [];
+const generatePassword = () => {
+  const passwordArray = [];
+  const lengthRequired = +lengthElem.value;
+  const options = Array.prototype.slice.call(checkboxes);
+
+  const noOptionsChecked = options.every((option) => !option.checked);
+
   hideCopiedMessage();
 
-  const lengthValue = +lengthElem.value,
-    hasSymbols = addSymbolsElem.checked,
-    hasNumbers = addNumbersElem.checked,
-    hasLowerCase = addLowerCaseElem.checked,
-    hasUpperCase = addUpperCaseElem.checked,
-    hasSimilar = addSimilarElem.checked;
-
-  const options = [
-    hasSymbols,
-    hasNumbers,
-    hasLowerCase,
-    hasUpperCase,
-    hasSimilar
-  ];
-
-  const noOptionChecked = options.every((option) => !option);
-
-  if (noOptionChecked) {
+  if (noOptionsChecked) {
     passwordElem.value = "select an option";
   } else {
-    while (newPassword.length < lengthValue) {
-      for (const box in checkboxes) {
-        if (checkboxes[box].checked)
-          newPassword.push(getRandomCharacter(checkboxes[box].name));
+    while (passwordArray.length < lengthRequired) {
+      for (const i in checkboxes) {
+        if (checkboxes[i].checked)
+          passwordArray.push(getRandomCharacter(checkboxes[i].name));
       }
     }
 
-    const shuffledFinalPassword = newPassword
+    const shuffledFinalPassword = passwordArray
       .sort((a, b) => 0.5 - Math.random())
       .join("")
-      .slice(0, lengthValue);
+      .slice(0, lengthRequired);
 
     passwordElem.value = shuffledFinalPassword;
   }
@@ -78,4 +61,4 @@ copyButtonElem.addEventListener("click", () => {
   showCopiedMessage();
 });
 
-lengthElem.addEventListener("input", () => showSymbol());
+lengthElem.addEventListener("input", () => generatePassword());
