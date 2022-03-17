@@ -61,4 +61,4 @@ copyButtonElem.addEventListener("click", () => {
   showCopiedMessage();
 });
 
-lengthElem.addEventListener("input", () => generatePassword());
+lengthElem.addEventListener("input", generatePassword);
