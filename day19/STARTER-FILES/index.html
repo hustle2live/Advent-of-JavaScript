@@ -18,13 +18,18 @@
           <img src="./images/error.svg" alt="Error" />
           A name is required
         </div>
-        <div class="success"></div>
+        <div class="success hide">
+          <img src="./images/success.svg" alt="Success" />
+        </div>
       </div>
       <div class="field">
         <input type="email" name="email" id="email" placeholder=" " />
         <label for="email">Email</label>
-        <div class="error"></div>
-        <div class="success">
+        <div class="error">
+          <img src="./images/error.svg" alt="Error" />
+          Invalid Email
+        </div>
+        <div class="success hide">
           <img src="./images/success.svg" alt="Success" />
         </div>
       </div>
@@ -32,8 +37,13 @@
         <input type="password" name="password" id="password" placeholder=" " />
         <label for="password">Password</label>
         <button class="show-hide"></button>
-        <div class="error"></div>
-        <div class="success"></div>
+        <div class="error hide">
+          <img src="./images/error.svg" alt="Error" />
+          Password length must be from 6 to 36 characters whithout any space
+        </div>
+        <div class="success hide">
+          <img src="./images/success.svg" alt="Success" />
+        </div>
       </div>
       <div class="field show">
         <input
@@ -44,8 +54,13 @@
         />
         <label for="confirm-password">Confirm Password</label>
         <button class="show-hide"></button>
-        <div class="error"></div>
-        <div class="success"></div>
+        <div class="error hide">
+          <img src="./images/error.svg" alt="Error" />
+          Passwords are not the same
+        </div>
+        <div class="success hide">
+          <img src="./images/success.svg" alt="Success" />
+        </div>
       </div>
       <div class="field">
         <input type="submit" name="submit" value="Submit" />
