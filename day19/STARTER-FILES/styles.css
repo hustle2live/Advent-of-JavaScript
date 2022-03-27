@@ -132,3 +132,7 @@ input[type="submit"] {
 .hide {
   display: none;
 }
+
+.security {
+  -webkit-text-security: disc !important;
+}
