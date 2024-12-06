@@ -1,0 +1,100 @@
+:root {
+   --bg-light: #26c9c3;
+   --bg-main: #f3f3f3;
+   --bg-blue: #1aaaf2;
+}
+
+body {
+   display: flex;
+   box-sizing: border-box;
+   flex-direction: column;
+   height: 100vh;
+   min-height: 100vh;
+   max-height: 100vh;
+   overflow: hidden;
+   background-color: rgb(215, 230, 250);
+   align-items: center;
+   justify-content: center;
+}
+
+.select-form.show {
+   overflow: visible;
+}
+
+.select-form {
+   margin: auto;
+   position: relative;
+   width: 600px;
+   height: 120px;
+   min-height: 120px;
+   border: 1px solid pink;
+   font-size: 34px;
+   background: var(--bg-main);
+   overflow: hidden;
+   color: black;
+}
+
+input,
+ul {
+   width: 100%;
+   height: 100%;
+   color: inherit;
+   font-size: inherit;
+   background: inherit;
+   list-style-type: none;
+   padding-left: 0px;
+}
+
+input {
+   padding: 20px 0;
+   width: 80%;
+   height: 60%;
+   margin: 25px 80px;
+   outline: 0;
+   border: 1px solid transparent;
+   box-sizing: border-box;
+}
+
+input::placeholder {
+   color: #26c9c3;
+}
+
+input:focus::placeholder {
+   color: transparent;
+}
+
+input:focus {
+   border-bottom: 1px solid rgb(148, 148, 148);
+}
+
+li {
+   height: inherit;
+   width: inherit;
+   font-size: inherit;
+   background: inherit;
+   display: block;
+   padding: 40px 20px;
+   max-width: 100%;
+   max-height: 100%;
+   box-sizing: border-box;
+   margin-bottom: 2px;
+   cursor: pointer;
+}
+
+li:hover {
+   background: var(--bg-blue);
+   color: white;
+}
+
+li.selected {
+   position: absolute;
+   left: 0;
+   top: 0;
+   border: 2px solid black;
+}
+
+ul {
+}
+
+.show ul {
+}
