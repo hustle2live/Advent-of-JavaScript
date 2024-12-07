@@ -8,21 +8,40 @@
       <script type="text/javascript" defer src="./index.js"></script>
    </head>
    <body>
-      <div class="select-form">
-         <input class="search" type="search" value="" placeholder="Your Favorite Holiday Movie" />
+      <form class="select-form">
+         <div class="arrow-icon">
+            <img src="./assets/dropdown-arrow.svg" alt="arrows" />
+         </div>
+         <input class="search" name="search" type="search" value="" placeholder="" />
+         <label for="search">Your Favorite Holiday Movie</label>
          <ul>
-            <li>movie 1</li>
-            <li>movie 2</li>
-            <li>movie 3</li>
+            <li>
+               <img
+                  src="https://m.media-amazon.com/images/M/MV5BY2NlNTMwYzgtZjI2Ny00ZWExLWE2NDUtNzFlYTQyMmY1NjkwXkEyXkFqcGc@._V1_QL75_UX140_CR0,0,140,207_.jpg"
+                  alt="Kevin Spacey, Judy Davis, and Denis Leary in The Ref (1994)"
+               />
+               <div>
+                  <h5>Title</h5>
+                  <p>2025</p>
+               </div>
+            </li>
          </ul>
-      </div>
-      <div style="width: auto; height: 200px; font-size: 60px; margin: auto; margin-bottom: 100px">
-         <div style="width: 100%; text-align: center; margin: 40px auto; text-decoration: none; font-size: 20px">
+      </form>
+      <div class="contacts" style="width: auto; height: 200px; font-size: 60px; margin: auto; margin-bottom: 100px">
+         <div
+            class="back-link"
+            style="width: 100%; text-align: center; margin: 40px auto; text-decoration: none; font-size: 20px"
+         >
             <a style="text-decoration: none" href="https://github.com/hustle2live/Advent-of-JavaScript/">
                BACK TO REPO
             </a>
          </div>
-         <a style="text-decoration: none" href="https://www.linkedin.com/in/vkuznietsov-bb066376/" target="_blank">
+         <a
+            class="social-link"
+            style="text-decoration: none"
+            href="https://www.linkedin.com/in/vkuznietsov-bb066376/"
+            target="_blank"
+         >
             <img
                style="border-radius: 50%; vertical-align: sub"
                src="../../ln.png"
@@ -31,7 +50,7 @@
                alt="github"
             />
          </a>
-         <a style="text-decoration: none" href="https://github.com/hustle2live" target="_blank">
+         <a class="social-link" style="text-decoration: none" href="https://github.com/hustle2live" target="_blank">
             <img
                style="border-radius: 50%; vertical-align: sub"
                src="../../gh.ico"
@@ -40,7 +59,7 @@
                alt="github"
             />
          </a>
-         <a style="text-decoration: none" href="https://t.me/vkuznetsov28" target="_blank">
+         <a class="social-link" style="text-decoration: none" href="https://t.me/vkuznetsov28" target="_blank">
             <img
                style="border-radius: 50%; vertical-align: sub"
                src="../../tg.png"
